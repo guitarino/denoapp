@@ -1,0 +1,10 @@
+{
+	"deno.enable": true,
+	"editor.tokenColorCustomizations": {
+		"comments": "#e60000"
+	},
+	"deno.import_intellisense_origins": {
+		"https://deno.land": true,
+	},
+	"debug.javascript.unmapMissingSources": true,
+}
