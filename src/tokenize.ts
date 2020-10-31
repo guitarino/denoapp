@@ -1,6 +1,6 @@
 export type Token = { type: "number" | "paren" | "name", value: string };
 
-export class UnexpectedCharacter extends Error {}
+export class UnexpectedCharacterError extends Error {}
 
 function isWhitespace(c: string): boolean {
 	return " \r\n\t".indexOf(c) >= 0;
@@ -51,7 +51,7 @@ export function tokenize(input: string): Token[] {
 			token = null;
 		}
 		else {
-			throw new UnexpectedCharacter();
+			throw new UnexpectedCharacterError();
 		}
 	}
 

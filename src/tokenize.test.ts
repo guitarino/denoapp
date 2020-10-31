@@ -1,6 +1,6 @@
 import { assert, assertThrows } from "https://deno.land/std/testing/asserts.ts";
 import type { Token } from "./tokenize.ts";
-import { tokenize, UnexpectedCharacter } from "./tokenize.ts";
+import { tokenize, UnexpectedCharacterError } from "./tokenize.ts";
 
 function assertTokenEquals(actualToken: Token, expectedToken: Token) {
 	assert(actualToken.type === expectedToken.type);
@@ -53,7 +53,7 @@ Deno.test("When given a paren, returns a single paren token", () => {
 
 Deno.test("An incorrect token throws unexpected character exception", () => {
 	["{ ", "!@", "asd !", "hello w@rld"].forEach((value: string) => {
-		assertThrows(() => tokenize(value), UnexpectedCharacter);
+		assertThrows(() => tokenize(value), UnexpectedCharacterError);
 	});
 });
 
@@ -65,7 +65,7 @@ Deno.test("A name token can have numbers as part of it", () => {
 
 Deno.test("If number is directly followed by non-number symbols, throws an error", () => {
 	["123b", "833kre", "000000O"].forEach((value: string) => {
-		assertThrows(() => tokenize(value), UnexpectedCharacter);
+		assertThrows(() => tokenize(value), UnexpectedCharacterError);
 	});
 });
 
