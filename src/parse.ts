@@ -54,43 +54,53 @@ export function parse(tokens: Token[]): ProgramNode {
 		const token = tokens[i];
 		const current = nodes[nodes.length - 1];
 
-		if (current.node.type === 'ProgramNode' &&
+		if (
+			current.node.type === 'ProgramNode' &&
 			token.type === 'paren' &&
-			token.value === '(') {
+			token.value === '('
+		) {
 			const nextNode: CallExpressionNode = createCallExpressionNode();
 			nodes.push({ node: nextNode, state: 'name' });
 			current.node.body.push(nextNode);
 		}
 
-		else if (current.node.type === 'CallExpressionNode' &&
+		else if (
+			current.node.type === 'CallExpressionNode' &&
 			current.state === 'args' &&
-			token.type === 'number') {
+			token.type === 'number'
+		) {
 			current.node.params.push({
 				type: 'NumberLiteral',
 				value: token.value,
 			});
 		}
 
-		else if (current.node.type === 'CallExpressionNode' &&
+		else if (
+			current.node.type === 'CallExpressionNode' &&
 			current.state === 'args' &&
 			token.type === 'paren' &&
-			token.value === '(') {
+			token.value === '('
+		) {
 			const nextNode: CallExpressionNode = createCallExpressionNode();
 			nodes.push({ node: nextNode, state: 'name' });
 			current.node.params.push(nextNode);
 		}
 
-		else if (current.node.type === 'CallExpressionNode' &&
+		else if (
+			current.node.type === 'CallExpressionNode' &&
 			current.state === 'name' &&
-			token.type === 'name') {
+			token.type === 'name'
+		) {
 			current.node.name = token.value;
 			current.state = 'args';
 		}
 
-		else if (current.node.type === 'CallExpressionNode' &&
+		else if (
+			current.node.type === 'CallExpressionNode' &&
 			current.state === 'args' &&
 			token.type === 'paren' &&
-			token.value === ')') {
+			token.value === ')'
+		) {
 			nodes.pop();
 		}
 
